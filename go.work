@@ -19,4 +19,6 @@ use (
 	./20urls
 	./21webreqverbs
 	./22bitmorejson
+	./23mymodules
+	./24buildapi
 )
