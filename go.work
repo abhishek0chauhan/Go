@@ -20,5 +20,5 @@ use (
 	./21webreqverbs
 	./22bitmorejson
 	./23mymodules
-	./24buildapi
+	./24-1-BuildAPI
 )
