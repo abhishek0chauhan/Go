@@ -16,7 +16,7 @@ import (
 	"go.mongodb.org/mongo-driver/x/mongo/driver/mongocrypt/options"
 )
 
-const connectionString = "mongodb+srv://abhishek:<Abhishek>@cluster0.rjj1641.mongodb.net/?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://abhishek:<>@cluster0.rjj1641.mongodb.net/?retryWrites=true&w=majority"
 const dbName = "netflix"
 const colName = "watchlist"
 
