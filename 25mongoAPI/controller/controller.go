@@ -7,16 +7,15 @@ import (
 	"log"
 	"net/http"
 
-	"command-line-argumentsC:\\Users\\Abhishek\\OneDrive\\Desktop\\my-work\\go\\Go\\25mongoAPI\\model\\models.go"
-	model "command-line-argumentsC:\\Users\\Abhishek\\OneDrive\\Desktop\\my-work\\go\\Go\\25mongoAPI\\model\\models.go"
+	"github.com/abhishek0chauhan/mongoAPI/model"
+	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/x/mongo/driver/mongocrypt/options"
 )
 
-const connectionString = "mongodb+srv://abhishek:<>@cluster0.rjj1641.mongodb.net/?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://abhishek:Abhishek123@cluster0.rjj1641.mongodb.net/?retryWrites=true&w=majority"
 const dbName = "netflix"
 const colName = "watchlist"
 
@@ -26,7 +25,7 @@ var collection *mongo.Collection
 // connect with mongoDB
 func init() {
 	// client options
-	clientOptions := options.Client().APPlyURI(connectionString)
+	clientOptions := options.Client().ApplyURI(connectionString)
 
 	//connect to mongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
@@ -47,7 +46,8 @@ func init() {
 
 // inser 1 records
 func insertOneMovie(movie model.Netflix) {
-	inserted, err := collection.InserOne(context.Background(), movie)
+	movie.ID = primitive.NewObjectID();
+	inserted, err := collection.InsertOne(context.Background(), movie)
 
 	if err != nil {
 		log.Fatal(err)
@@ -88,8 +88,8 @@ func deleteAllMovie() int64 {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Number of movies deleted: ", deleteResult.DeleteCount)
-	return deleteResult.DeleteCount
+	fmt.Println("Number of movies deleted: ", deleteResult.DeletedCount)
+	return deleteResult.DeletedCount
 }
 
 // get all movies
@@ -133,5 +133,20 @@ func CreateMovie(w http.ResponseWriter, r *http.Request) {
 
 func MarkAsWatched(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/x-ww-form-urlencode")
+	w.Header().Set("Allow-Control-Allow-Methods", "PUT")
 
+	params := mux.Vars(r)
+
+	updateOneMovie(params["id"])
+	json.NewEncoder(w).Encode(params["id"])
+}
+
+func DeleteOneMovie(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "application/x-ww-form-urlencode")
+	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
+
+	params := mux.Vars(r)
+
+	deleteOneMovie(params["id"])
+	json.NewEncoder(w).Encode(params["id"])
 }

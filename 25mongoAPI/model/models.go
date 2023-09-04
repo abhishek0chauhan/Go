@@ -5,7 +5,7 @@ import (
 )
 
 type Netflix struct {
-	ID      primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempt"`
+	ID      primitive.ObjectID `json:"_id,omitempty" bson:"_id"`
 	Movie   string             `json:"movie,omitempty"`
 	Watched bool               `json:"watched,omitempty"`
 }

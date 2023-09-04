@@ -1,6 +1,6 @@
 module github.com/abhishek0chauhan/mongoAPI
 
-go 1.20
+go 1.21
 
 require (
 	github.com/golang/snappy v0.0.1 // indirect
