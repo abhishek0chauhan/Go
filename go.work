@@ -24,4 +24,7 @@ use (
 	./23mymodules
 	./24-1-BuildAPI
 	./25mongoAPI
+	./26GoRoutines
+	./27racecondition
+	./28channels-deadlock
 )
